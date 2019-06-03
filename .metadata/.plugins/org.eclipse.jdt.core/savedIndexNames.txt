@@ -1,0 +1,6 @@
+INDEX VERSION 1.130+C:\Users\cango\Desktop\Uni 6+7 Semester\VS\.metadata\.plugins\org.eclipse.jdt.core
+1109140483.index
+48920660.index
+2561717344.index
+4256867083.index
+1872270736.index

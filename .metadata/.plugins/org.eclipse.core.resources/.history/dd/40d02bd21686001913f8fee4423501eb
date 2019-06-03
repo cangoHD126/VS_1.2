@@ -1,0 +1,51 @@
+package var.web.ws.poll;
+
+import java.io.IOException;
+
+import javax.websocket.EncodeException;
+import javax.websocket.Endpoint;
+import javax.websocket.EndpointConfig;
+import javax.websocket.OnClose;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
+
+@ServerEndpoint("/election")
+public class ElectionService {
+
+	public void notify(BallotBox ballotBox) throws IOException, EncodeException{
+		// TODO Auto-generated method stub
+
+	}
+
+	@OnOpen
+	public void init(Session s, @PathParam("user") String nickName) throws IOException{
+		
+		//hole die Instanz aus BallotBox
+		BallotBox response = BallotBox.getInstance();
+		//sende die BallotBox-Instanz asynchron 
+		s.getAsyncRemote().sendObject(response);
+		
+		System.out.println("TEST");
+		
+		//wenn Nachricht über SockeSession kommt dann wird diese Nachricht versendet
+		s.getBasicRemote().sendText("geschafsft");
+		//füge BallotBox den ElectionSevice als Observer hinzu
+		response.addObserver(this);
+	}
+	
+	
+	@OnClose()
+	public void destroy(Session s) throws IOException{
+		BallotBox list = BallotBox.getInstance();
+		list.removeObserver(this);
+	}
+	/*
+	 * @onClose() wird ausgeführt sobald Channel beendet wird
+	 * @onError() wird ausgeführt wenn Exception ausgeführt wird
+	 * 
+	 * */
+
+
+}

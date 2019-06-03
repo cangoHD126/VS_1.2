@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move package &apos;var.web.ws.poll&apos; to &apos;VS1.2/src&apos;&#x0D;&#x0A;- Original project: &apos;VerteilteSystemeZulassung&apos;&#x0D;&#x0A;- Destination element: &apos;VS1.2/src&apos;&#x0D;&#x0A;- Original element: &apos;VerteilteSystemeZulassung/src/var.web.ws.poll&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=VS1.2/src" element1="/src&lt;var.web.ws.poll" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1559557215652" version="1.0"/>
+</session>

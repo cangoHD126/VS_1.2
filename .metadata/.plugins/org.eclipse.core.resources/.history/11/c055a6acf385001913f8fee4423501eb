@@ -1,0 +1,14 @@
+package var.web.ws.poll;
+
+import java.io.IOException;
+
+import javax.websocket.EncodeException;
+
+public class ElectionService {
+
+	public void notify(BallotBox ballotBox) throws IOException, EncodeException{
+		// TODO Auto-generated method stub
+
+	}
+
+}

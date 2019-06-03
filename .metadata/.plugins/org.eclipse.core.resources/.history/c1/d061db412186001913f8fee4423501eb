@@ -1,0 +1,42 @@
+package var.web.ws.poll;
+
+import java.util.HashMap;
+
+import java.util.Map;
+
+import javax.websocket.EncodeException;
+import javax.websocket.Encoder;
+import javax.websocket.EndpointConfig;
+
+import org.json.JSONObject;
+
+
+
+public class DataEncoder implements Encoder.Text<BallotBox> {
+
+	private Map<String, Integer> votes = new HashMap<>();
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init(EndpointConfig arg0) {
+		// TODO Auto-generated method stub	
+	}
+
+	@Override
+	public String encode(BallotBox arg0) throws EncodeException {
+		JSONObjectBuilder uer = Json.createObjectBuilder();
+		return Json.createObjctBuilder()
+				.add("CountVotes", arg0.countVotes())
+				.build().toString();
+		
+	}
+
+	
+
+
+}
