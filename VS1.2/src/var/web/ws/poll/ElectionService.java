@@ -7,6 +7,7 @@ import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnOpen;
+import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
@@ -17,16 +18,20 @@ public class ElectionService {
 	private Session session;
 	
 	
-	public void notify(BallotBox zwischenStand) throws IOException, EncodeException{
+	public void notify() throws IOException, EncodeException{
 		
 		if(session.isOpen()) {
+			BallotBox zwischenstand=BallotBox.getInstance();
 			//DataEncoder response = new DataEncoder();		
 			//encodet zwischenStand
 			//String responseAsString =  new DataEncoder().encode(zwischenStand);
 			
 			try {
+				RemoteEndpoint.Basic client = session.getBasicRemote();
+				DataEncoder data= new DataEncoder();
+				data.encode(zwischenstand);
 				//versendet die BallotBox-Nachricht an Client und decodiert davor
-				session.getBasicRemote().sendObject( new DataEncoder().encode(zwischenStand));
+				client.sendObject(data);
 			}catch(EncodeException|IOException e) {
 				e.printStackTrace();
 			}	
@@ -48,7 +53,7 @@ public class ElectionService {
 		System.out.println("TEST");
 		
 		//wenn Nachricht über SockeSession kommt dann wird diese Nachricht versendet
-		s.getBasicRemote().sendText("geschafsft");
+		s.getBasicRemote().sendText("geschaft");
 		//füge BallotBox den ElectionSevice als Observer hinzu
 		BallotBox.getInstance().addObserver(this);
 	}

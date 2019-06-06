@@ -42,7 +42,7 @@ public class BallotBox {
 		this.votes.put(choice, voteCount + 1);
 		for (final ElectionService observer : this.observers) {
 			try {
-				observer.notify(this);
+				observer.notify();
 			} catch (final EncodeException e) {
 				e.printStackTrace();
 			}
