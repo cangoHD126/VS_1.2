@@ -24,6 +24,7 @@ public class ElectionService {
 	@OnOpen
 	public void init(Session session) throws IOException{
 		this.session = session;
+		//Observer adden
 		BallotBox ballotBox = BallotBox.getInstance();
         ballotBox.addObserver(this);
     	

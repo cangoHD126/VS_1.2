@@ -25,6 +25,7 @@ public class DataEncoder implements Encoder.Text<BallotBox> {
 
 	@Override
 	public String encode(BallotBox arg0) throws EncodeException {
+		// eigenen JSON String bauen
 		String jsonString = "{\"votes\": " + arg0.countVotes() + "}";
 		return jsonString;
 
