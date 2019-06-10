@@ -18,34 +18,44 @@ public class ElectionService {
 	private Session session;
 	
 	
-	public void notify(BallotBox ballotBox) throws IOException, EncodeException{
-		sendHandler();
-	}
-	
-	private void sendHandler() {
-		if (session.isOpen()) {
-	    	
-			//deswegen Nullpointer
-			DataEncoder dataEncoder = new DataEncoder();
-			BallotBox ballotBox = BallotBox.getInstance();
-	    	
+	public void notify() throws IOException, EncodeException{
+		
+		if(session.isOpen()) {
+			BallotBox zwischenstand=BallotBox.getInstance();
+			//DataEncoder response = new DataEncoder();		
+			//encodet zwischenStand
+			//String responseAsString =  new DataEncoder().encode(zwischenStand);
+			
 			try {
-				session.getBasicRemote().sendText(dataEncoder.encode(ballotBox));
+				RemoteEndpoint.Basic client = session.getBasicRemote();
+				DataEncoder data= new DataEncoder();
+				data.encode(zwischenstand);
+				//versendet die BallotBox-Nachricht an Client und decodiert davor
+				client.sendObject(data);
 			}catch(EncodeException|IOException e) {
 				e.printStackTrace();
-			}
-		} else {
-			System.out.println("gschlossen");
+			}	
 		}
 	}
 
 	@OnOpen
-	public void init(Session s) throws IOException{
-		BallotBox ballotBox = BallotBox.getInstance();
-        ballotBox.addObserver(this);
-		this.session = session;
-    	
-		sendHandler();
+	public void init(Session s, @PathParam("user") String nickName) throws IOException{
+		
+		//hole die Instanz aus BallotBox
+		//BallotBox response = BallotBox.getInstance();
+		
+		//sende die BallotBox-Instanz asynchron 
+		s.getAsyncRemote().sendObject(BallotBox.getInstance());
+		
+		//Session in Instanz = instance, speichern
+		
+		
+		System.out.println("TEST");
+		
+		//wenn Nachricht über SockeSession kommt dann wird diese Nachricht versendet
+		s.getBasicRemote().sendText("geschaft");
+		//füge BallotBox den ElectionSevice als Observer hinzu
+		BallotBox.getInstance().addObserver(this);
 	}
 	
 	

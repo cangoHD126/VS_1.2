@@ -40,12 +40,23 @@ public class ElectionService {
 	}
 
 	@OnOpen
-	public void init(Session s) throws IOException{
-		BallotBox ballotBox = BallotBox.getInstance();
-        ballotBox.addObserver(this);
-		this.session = session;
-    	
-		sendHandler();
+	public void init(Session s, @PathParam("user") String nickName) throws IOException{
+		
+		//hole die Instanz aus BallotBox
+		//BallotBox response = BallotBox.getInstance();
+		
+		//sende die BallotBox-Instanz asynchron 
+		s.getAsyncRemote().sendObject(BallotBox.getInstance());
+		
+		//Session in Instanz = instance, speichern
+		
+		
+		System.out.println("TEST");
+		
+		//wenn Nachricht über SockeSession kommt dann wird diese Nachricht versendet
+		s.getBasicRemote().sendText("geschaft");
+		//füge BallotBox den ElectionSevice als Observer hinzu
+		BallotBox.getInstance().addObserver(this);
 	}
 	
 	

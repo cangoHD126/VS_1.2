@@ -15,5 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/cango/Documents/Downloads/javax.json-1.1.2.jar"/>
 	<classpathentry kind="lib" path="D:/Tomcat9/Json/java-json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cango/Documents/Downloads/javax.websocket-api-1.0-rc4.jar.zip"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
