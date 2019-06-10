@@ -21,7 +21,7 @@ public class BallotBoxServlet extends HttpServlet {
 	public BallotBoxServlet() {
 		super();
 		this.election = BallotBox.getInstance();
-		//System.out.println("drinne");
+		System.out.println("drinne");
 	}
 
 	@Override
