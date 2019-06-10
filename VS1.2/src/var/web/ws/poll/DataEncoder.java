@@ -16,13 +16,11 @@ public class DataEncoder implements Encoder.Text<BallotBox> {
 	
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void init(EndpointConfig arg0) {
-		// TODO Auto-generated method stub	
 	}
 
 	@Override

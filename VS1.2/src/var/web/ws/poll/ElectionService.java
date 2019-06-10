@@ -3,56 +3,41 @@ package var.web.ws.poll;
 import java.io.IOException;
 
 import javax.websocket.EncodeException;
-import javax.websocket.Endpoint;
-import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnOpen;
-import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
-import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/election")
+@ServerEndpoint(value = "/election", encoders = DataEncoder.class)
 public class ElectionService {
 
 	private Session session;
 	
 	
-	public void notify(BallotBox ballotBox) throws IOException, EncodeException{
-		sendHandler();
-	}
-	
-	private void sendHandler() {
-		if (session.isOpen()) {
-	    	
-			//deswegen Nullpointer
-			DataEncoder dataEncoder = new DataEncoder();
-			BallotBox ballotBox = BallotBox.getInstance();
-	    	
-			try {
-				session.getBasicRemote().sendText(dataEncoder.encode(ballotBox));
-			}catch(EncodeException|IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			System.out.println("gschlossen");
+	public void notify(BallotBox zwischenstand) throws IOException, EncodeException{
+		
+		if(session.isOpen()) {
+				session.getBasicRemote().sendObject(zwischenstand);
 		}
 	}
 
 	@OnOpen
-	public void init(Session s) throws IOException{
+	public void init(Session session) throws IOException{
+		this.session = session;
 		BallotBox ballotBox = BallotBox.getInstance();
         ballotBox.addObserver(this);
-		this.session = session;
     	
-		sendHandler();
+		try {
+			notify(ballotBox);
+		} catch (EncodeException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
 	@OnClose()
 	public void destroy(Session s) throws IOException{
-		//BallotBox list = BallotBox.getInstance();
-		//lösche diese ElectionService INstanz aus BallotBox
+		//lösche diese ElectionService Instanz aus BallotBox
 		BallotBox.getInstance().removeObserver(this);
 	}
 	/*
